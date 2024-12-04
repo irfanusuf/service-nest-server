@@ -16,6 +16,7 @@ const createService = async (req, res) => {
     if (user.role === "service provider") {
       const {
         serviceTitle,
+        description,
         serviceCost,
         discount,
         timeOfCompletion,
@@ -24,18 +25,20 @@ const createService = async (req, res) => {
       } = req.body;
 
       if (
-        serviceTitle === "" ||
-        serviceCost === "" ||
-        discount === "" ||
-        timeOfCompletion === "" ||
-        region === "" ||
-        category === ""
+        !serviceTitle ||
+        !serviceCost ||
+        !description||
+        !discount ||
+        !timeOfCompletion ||
+        !region ||
+        !category
       ) {
         return messageHandler(res, 400, "All details of service Required");
       }
 
       const newService = await Service({
         serviceTitle,
+        description,
         serviceProvider: user._id,
         serviceCost,
         discount,
