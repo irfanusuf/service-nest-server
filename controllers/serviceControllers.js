@@ -25,13 +25,13 @@ const createService = async (req, res) => {
       } = req.body;
 
       if (
-        serviceTitle === "" ||
-        description === "" ||
-        serviceCost === "" ||
-        discount === "" ||
-        timeOfCompletion === "" ||
-        region === "" ||
-        category === ""
+        !serviceTitle ||
+        !serviceCost ||
+        !description||
+        !discount ||
+        !timeOfCompletion ||
+        !region ||
+        !category
       ) {
         return messageHandler(res, 400, "All details of service Required");
       }
