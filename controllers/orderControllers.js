@@ -7,19 +7,23 @@ const createOrder = async (req, res) => {
   try {
     const { serviceId } = req.query;
     const userId = req.userId;
-    const { paymentMode } = req.body;
+    // const { paymentMode } = req.body;
     const service = await Service.findById(serviceId);
     const user = await User.findById(userId);
 
-    if (!service || service.isActive === false) {
-      return messageHandler(res, 404, "service unavialble ");
+    if (!service ) {
+      return messageHandler(res, 404, "service unavailable!");
     }
 
-    if (!user || user.role !== "customer") {
+    if(service.isActive === false){
+      return messageHandler(res, 400, "This service is inactive!");
+    }
+
+    if (!user ) {
       return messageHandler(
         res,
         404,
-        "No user Found | Service providers Cant place order!"
+        "No user Found! "
       );
     }
 
@@ -29,7 +33,7 @@ const createOrder = async (req, res) => {
     const order = await Order.create({
       service: serviceId,
       orderCost: orderCost,
-      paymentMode: paymentMode,
+      // paymentMode: paymentMode,
       customer: userId,
     });
 
@@ -67,9 +71,9 @@ const cancelOrder = async (req, res) => {
       const updatedOrder = (order.orderStatus = "cancelled");
 
       await order.save();
-      return messageHandler(res, 200, "order updated", updatedOrder);
+      return messageHandler(res, 200, "Order cancelled succesfully", updatedOrder);
     } else {
-      return messageHandler(res, 200, "order cancellation not possible");
+      return messageHandler(res, 200, "Order cancellation not possible");
     }
   } catch (error) {
     console.error(error);

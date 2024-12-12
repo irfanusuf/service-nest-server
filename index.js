@@ -57,7 +57,7 @@ app.post("/user/register", registerHandler); // done
 app.post("/user/login", loginHandler); // done
 app.post("/user/forgotPass", forgotPassHandler); // done
 app.put("/user/password/reset/:userId", resetPassHandler); // done
-app.post("/user/upload/profile" ,multmid, isAuthenticated , uploadProfilePic)
+app.post("/user/upload/profile" ,multmid, isAuthenticated , uploadProfilePic)  //done
 
 // secure user Routes
 app.post("/user/delete", isAuthenticated, deleteUserHandler); //done
@@ -65,12 +65,14 @@ app.put("/user/changepassword", isAuthenticated, changePasshandler); // done
 app.get("/user/getuser", isAuthenticated, getUser); // done
 
 // service Routes
-app.post("/seller/create/service", isAuthenticated, createService);
-app.post("/seller/upload/serviceImage" , multmid , isAuthenticated , UploadServicePic)
-app.get("/services/all", isAuthenticated, getAllservices);
-app.get("/service", isAuthenticated, getServiceById);
-app.put("/seller/edit/service", isAuthenticated, editServiceById);
-app.delete("/seller/delete/service", isAuthenticated, delServicebyId);
+app.post("/seller/create/service", isAuthenticated, createService);  // done
+app.post("/seller/upload/serviceImage" , multmid , isAuthenticated , UploadServicePic)   // done
+app.put("/seller/edit/service", isAuthenticated, editServiceById);    // done
+app.delete("/seller/delete/service", isAuthenticated, delServicebyId);   // done
+
+app.get("/services/all", isAuthenticated, getAllservices); 
+app.get("/service", isAuthenticated, getServiceById);   // done 
+
 
 // order Routes
 app.post("/customer/create/order", isAuthenticated, createOrder);
