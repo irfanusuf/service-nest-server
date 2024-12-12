@@ -4,6 +4,7 @@ const serviceSchema = new mongoose.Schema({
   serviceTitle: {type : String},
   description : {type : String},
   serviceProvider: {type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  description : {type:String},
   serviceCost: { type: Number },
   picUrls : {type :String},
   isActive: { type: Boolean , default :false},

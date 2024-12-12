@@ -70,6 +70,10 @@ const createService = async (req, res) => {
 const UploadServicePic = async (req, res) => {
   try {
     const { serviceId } = req.query;
+
+    if(serviceId === null){
+      return messageHandler(res, 400, "Service Id not found");
+    }
     const service = await Service.findById(serviceId);
     const user = await User.findById(req.userId);
 
@@ -84,8 +88,8 @@ const UploadServicePic = async (req, res) => {
       user.role === "service provider" &&
       service.serviceProvider._id.toString() === req.userId
     ) {
-      const imagePath = req.file.path;
-      const upload = await uploadTocloud(imagePath);
+      const {image} = req.body;
+      const upload = await uploadTocloud(image);
 
       service.picUrls = upload.secure_url;
 
@@ -120,9 +124,7 @@ const getServiceById = async (req, res) => {
   try {
     const { serviceId } = req.query;
 
-    const service = await Service.findById(serviceId).populate({
-      path: "serviceProvider",
-    });
+    const service = await Service.findById(serviceId)
 
     if (!service) {
       return messageHandler(res, 400, "Service not found");
