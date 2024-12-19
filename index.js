@@ -33,7 +33,7 @@ const PORT = process.env.PORT;
 connectDb();
 
 //middle wares
-
+ 
 app.use(express.json());
 // app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded())
@@ -73,22 +73,15 @@ app.delete("/seller/delete/service", isAuthenticated, delServicebyId);   // done
 app.get("/services/all", isAuthenticated, getAllservices); 
 app.get("/service", isAuthenticated, getServiceById);   // done 
 
-
 // order Routes
 app.post("/customer/create/order", isAuthenticated, createOrder);
 app.put("/customer/cancel/order", isAuthenticated, cancelOrder);
 app.get("/customer/fetch/orders" ,isAuthenticated , getAllOrders )
 app.get("/customer/fetch/order" ,isAuthenticated , getorderById )
 
-
-
-
 // payment routes
 
 app.post("/customer/pay/order", isAuthenticated, createPaymentIntent);
-
-
-
 
 
 
