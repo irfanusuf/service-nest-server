@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   profilepicUrl: { type: String },
   bio: { type: String },
   location: { latitude: String, longitude: String },
+  address : {type : String , },
   mobile: { type: String },
   experience: { type: String },
   specialization: { type: String },

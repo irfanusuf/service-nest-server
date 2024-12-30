@@ -4,7 +4,6 @@ const serviceSchema = new mongoose.Schema({
   serviceTitle: {type : String},
   description : {type : String},
   serviceProvider: {type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  description : {type:String},
   serviceCost: { type: Number },
   picUrls : {type :String},
   isActive: { type: Boolean , default :false},
@@ -15,7 +14,7 @@ const serviceSchema = new mongoose.Schema({
 
   reviews: [
     {
-      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      username: { type: String},
       starRating: { type: Number, required: true, min: 1, max: 5 },
       review: { type: String, required: true },
     },

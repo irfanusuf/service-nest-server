@@ -271,6 +271,49 @@ try {
 
 }
 
+
+const addReview = async(req,res) =>{
+
+  try {
+  
+    const {serviceId} = req.query
+    const {comment} = req.body
+    const service = await Service.findById(serviceId)
+    const {username} = await User.findById(req.userId)
+
+    const element = {
+      username : username,
+      starRating : 3 ,
+      review : comment
+    }
+  
+    if(!service){
+      return messageHandler(res ,400 , "Service not Found!")
+    }
+
+    const findIndex = service.reviews.findIndex(element => element.username ===  username)
+     
+    if(findIndex === -1){
+     service.reviews.push(element)
+     await service.save()
+     return messageHandler(res, 200 , "Review Added!")
+    }
+    else{
+      return messageHandler(res, 400 , "You have Already reviewed the service ")
+    }
+ 
+  
+  } catch (error) {
+    console.log(error)
+  }
+  
+  
+  }
+  
+
+
+
+
 module.exports = {
   createService,
   UploadServicePic,
@@ -278,5 +321,6 @@ module.exports = {
   getServiceById,
   editServiceById,
   delServicebyId,
-  activateService
+  activateService,
+  addReview
 };

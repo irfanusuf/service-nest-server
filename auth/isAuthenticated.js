@@ -10,7 +10,7 @@ const isAuthenticated = async (req, res , next) => {
     const secretKey = process.env.SECRET_KEY;
 
     if (!token) {
-      return messageHandler(res, 403, "No token Detected | Forbidden");
+      return messageHandler(res, 403, "Kindly Login First!");
     }
 
     jwt.verify(token, secretKey, (error, resolve) => {

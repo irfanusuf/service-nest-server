@@ -15,10 +15,6 @@ const createOrder = async (req, res) => {
       return messageHandler(res, 404, "service unavailable!");
     }
 
-    if(service.isActive === false){
-      return messageHandler(res, 400, "This service is inactive!");
-    }
-
     if (!user ) {
       return messageHandler(
         res,
@@ -26,6 +22,17 @@ const createOrder = async (req, res) => {
         "No user Found! "
       );
     }
+
+    if(service.isActive === false){
+      return messageHandler(res, 400, "This service is inactive!");
+    }
+
+    if(userId === service.serviceProvider.toString()){
+
+      return messageHandler(res, 400, "You are the service Provider");
+    }
+
+
 
     const orderCost =
       service.serviceCost - (service.discount / 100) * service.serviceCost;
@@ -85,7 +92,9 @@ const getorderById = async (req, res) => {
   try {
     const { orderId } = req.query;
 
-    const order = await Order.findById(orderId);
+    const order = await Order.findById(orderId)
+    .populate({path : "service" })
+    .populate({path : "customer"});
 
     if (!order) {
       return messageHandler(res, 404, "Order not Found");

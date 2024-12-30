@@ -11,6 +11,7 @@ const {
   getUser,
   changePasshandler,
   uploadProfilePic,
+  logoutHandler,
 } = require("./controllers/userController"); // import function from controllers
 const { connectDb } = require("./config/connectDb");
 const { isAuthorised } = require("./auth/isAuthorised");
@@ -23,6 +24,7 @@ const {
   delServicebyId,
   UploadServicePic,
   activateService,
+  addReview,
 } = require("./controllers/serviceControllers");
 const { createOrder, cancelOrder, getorderById, getAllOrders } = require("./controllers/orderControllers");
 const { createPaymentIntent } = require("./controllers/paymentController");
@@ -64,13 +66,15 @@ app.post("/user/upload/profile" ,multmid, isAuthenticated , uploadProfilePic)  /
 app.post("/user/delete", isAuthenticated, deleteUserHandler); //done
 app.put("/user/changepassword", isAuthenticated, changePasshandler); // done
 app.get("/user/getuser", isAuthenticated, getUser); // done
+app.get("/user/logout" ,isAuthenticated, logoutHandler)  // done
 
 // service Routes
 app.post("/seller/create/service", isAuthenticated, createService);  // done
 app.post("/seller/upload/serviceImage" , multmid , isAuthenticated , UploadServicePic)   // done
 app.put("/seller/edit/service", isAuthenticated, editServiceById);    // done
 app.delete("/seller/delete/service", isAuthenticated, delServicebyId);   // done
-app.get("/seller/activate/service" , isAuthenticated , activateService)
+app.get("/seller/activate/service" , isAuthenticated , activateService) // done
+app.post("/customer/add/review/" , isAuthenticated , addReview)
 
 app.get("/services/all", getAllservices);   // done 
 app.get("/service", isAuthenticated, getServiceById);   // done 

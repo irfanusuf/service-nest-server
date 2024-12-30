@@ -195,9 +195,13 @@ const resetPassHandler = async (req, res) => {
 
 const deleteUserHandler = async (req, res) => {
   try {
-    const { userId } = req.userId;
+    const  userId = req.userId;
 
     const { password } = req.body;
+
+    if(!password){
+     return messageHandler(res , 400 , "Password not given!")
+    }
 
     const user = await User.findById(userId);
 
@@ -300,6 +304,31 @@ const uploadProfilePic = async (req, res) => {
   }
 };
 
+
+const logoutHandler = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return messageHandler(res, 404, "User not Found");
+    }
+
+    res.clearCookie('token');
+    messageHandler(res , 200 , "Logged Out succesfully!")
+
+ 
+  } catch (error) {
+    messageHandler(res, 500, "Server Error");
+    console.error(error);
+  }
+};
+
+
+
+
+
+
+
 module.exports = {
   registerHandler,
   loginHandler,
@@ -309,4 +338,5 @@ module.exports = {
   getUser,
   changePasshandler,
   uploadProfilePic,
+  logoutHandler
 };
