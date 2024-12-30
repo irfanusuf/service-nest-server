@@ -22,6 +22,7 @@ const {
   editServiceById,
   delServicebyId,
   UploadServicePic,
+  activateService,
 } = require("./controllers/serviceControllers");
 const { createOrder, cancelOrder, getorderById, getAllOrders } = require("./controllers/orderControllers");
 const { createPaymentIntent } = require("./controllers/paymentController");
@@ -69,8 +70,9 @@ app.post("/seller/create/service", isAuthenticated, createService);  // done
 app.post("/seller/upload/serviceImage" , multmid , isAuthenticated , UploadServicePic)   // done
 app.put("/seller/edit/service", isAuthenticated, editServiceById);    // done
 app.delete("/seller/delete/service", isAuthenticated, delServicebyId);   // done
+app.get("/seller/activate/service" , isAuthenticated , activateService)
 
-app.get("/services/all", isAuthenticated, getAllservices); 
+app.get("/services/all", getAllservices);   // done 
 app.get("/service", isAuthenticated, getServiceById);   // done 
 
 // order Routes

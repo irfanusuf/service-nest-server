@@ -240,6 +240,37 @@ const delServicebyId = async (req, res) => {
   }
 };
 
+
+const activateService = async(req,res) =>{
+
+try {
+
+  const {serviceId} = req.query
+ 
+  const service = await Service.findById(serviceId)
+
+  if(!service){
+    return messageHandler(res ,400 , "service not Found")
+  }
+
+  if(service.isActive){
+   service.isActive = false
+   await service.save()
+   return messageHandler(res, 200 , "Deactivated")
+  }
+  else{
+    service.isActive = true
+    await service.save()
+    return messageHandler(res, 200 , "Activated")
+  }
+
+} catch (error) {
+  console.log(error)
+}
+
+
+}
+
 module.exports = {
   createService,
   UploadServicePic,
@@ -247,4 +278,5 @@ module.exports = {
   getServiceById,
   editServiceById,
   delServicebyId,
+  activateService
 };

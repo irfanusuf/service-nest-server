@@ -222,6 +222,7 @@ const deleteUserHandler = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const userId = req.userId;
+    
     const user = await User.findById(userId)
     .populate({path :"services"}).populate({path: "orders"})
 

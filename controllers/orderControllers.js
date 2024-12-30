@@ -99,22 +99,16 @@ const getorderById = async (req, res) => {
 };
 
 const getAllOrders = async (req,res)=>{
-
 try {
-
   const orders = await Order.find()
   if(orders){
   return  messageHandler(res, 200 , `${orders.length} orders found` , orders )
   }
-
-  
 } catch (error) {
-  return messageHandler (res , 500 , "server Error")
   console.log(error)
+  return messageHandler (res , 500 , "server Error")
 }
-
-
-}
+} 
 
 
 
